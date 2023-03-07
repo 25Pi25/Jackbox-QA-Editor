@@ -13,23 +13,19 @@ public class Button : MonoBehaviour
     {
         packContainer = GameObject.Find("Pack Container").transform;
     }
-    void Start()
-    {
-        UpdateJackboxTable();
-    }
+    void Start() => UpdateJackboxTable();
     void OnMouseDown()
     {
-        filePath = EditorUtility.OpenFolderPanel("Select a folder1", "C:/Program Files (x86)/Steam/steamapps/common", "");
+        filePath = EditorUtility.OpenFolderPanel("Select a folder1", filePath, "");
+        foreach (Transform child in packContainer) Destroy(child.gameObject);
         UpdateJackboxTable();
     }
     void UpdateJackboxTable()
     {
-        foreach (Transform child in packContainer) DestroyImmediate(child.gameObject);
         for (int i = 1; i <= 9; i++)
         {
             string jackboxGame = $"The Jackbox Party Pack {(i == 1 ? "" : i)}";
             if (!Directory.Exists(Path.Combine(filePath, jackboxGame))) continue;
-            Debug.Log(jackboxButtonPrefab);
             GameObject newPrefab = Instantiate(jackboxButtonPrefab, packContainer);
             newPrefab.GetComponent<JackboxButton>().id = i;
         }
