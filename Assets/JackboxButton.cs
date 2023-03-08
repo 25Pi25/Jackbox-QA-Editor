@@ -15,4 +15,10 @@ public class JackboxButton : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = buttonSprites[id - 1];
         }
     }
+
+    void OnMouseDown()
+    {
+        SystemManager.pack = id;
+        Debug.Log(SystemManager.pack);
+    }
 }
