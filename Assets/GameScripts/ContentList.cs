@@ -1,21 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ContentList : MonoBehaviour
 {
-    
+    protected void LogFamilyFriendly()
+    {
+        var fieldValues = this.GetType()
+            .GetFields()
+            .Select(field => field.GetValue(this))
+            .ToList();
+    }
 }
 
-public class QuiplashQuestion : ContentList
-{
-    public bool familyFriendly;
-    public int id;
-    public string prompt;
-    public AudioClip promptAudio;
+public enum StringType {
+    SHORT,
+    PARAGRAPH
+}
 
-    public bool hasJokeAudio;
-    public string[] jokeKeywords;
-    public string location;
-    public AudioClip keywordResponseAudio;
+[AttributeUsage(AttributeTargets.Field)]
+public class StringTypeAttribute : Attribute
+{
+    public StringType type { get; private set; }
+    public StringTypeAttribute(StringType type) => this.type = type;
 }
