@@ -144,7 +144,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3185876227788129671}
-  - component: {fileID: 2996059760813976549}
   m_Layer: 0
   m_Name: Property (Boolean)
   m_TagString: Untagged
@@ -174,18 +173,6 @@ RectTransform:
   m_AnchoredPosition: {x: -66.70001, y: 102.80998}
   m_SizeDelta: {x: 175, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2996059760813976549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3185876227788129670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd739a5a70ea6bc479016f7b3ba04337, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3185876228504309988
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,7 +295,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2996059760813976549}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: BooleanContainer, Assembly-CSharp
         m_MethodName: OnButtonClick
         m_Mode: 1

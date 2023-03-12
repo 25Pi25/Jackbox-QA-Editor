@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 
-public class Button : MonoBehaviour
+public class PackButton : MonoBehaviour
 {
     string filePath = "C:/Program Files (x86)/Steam/steamapps/common";
     [SerializeField] GameObject jackboxButtonPrefab;

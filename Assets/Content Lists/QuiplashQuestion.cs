@@ -18,8 +18,28 @@ public class QuiplashQuestion : ContentList
     [StringType(StringType.SHORT)]
     public string location;
     public AudioClip keywordResponseAudio;
-    public void DoSomeValidation()
+    FieldInfo[] jokeFields;
+    void Awake()
     {
-        
+        jokeFields = new FieldInfo[] {
+            this.GetType().GetField("jokeKeywords"),
+            this.GetType().GetField("location"),
+            this.GetType().GetField("keywordResponseAudio")
+        };
+    }
+
+    public override void RunValidation(FieldInfo field)
+    {
+        if (field.Name != "hasJokeAudio") return;
+        if (hasJokeAudio)
+        {
+            foreach (FieldInfo jokeField in jokeFields) CreateField(jokeField);
+        }
+        else
+        {
+            Destroy(transform.Find("jokeKeywords").gameObject);
+            Destroy(transform.Find("location").gameObject);
+            Destroy(transform.Find("keywordResponseAudio").gameObject);
+        }
     }
 }
