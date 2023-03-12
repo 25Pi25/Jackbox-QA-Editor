@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using TMPro;
 
 public class ContentList : MonoBehaviour
 {
@@ -13,6 +14,23 @@ public class ContentList : MonoBehaviour
     [SerializeField] protected GameObject integerPrefab;
     [SerializeField] protected GameObject audioClipPrefab;
     protected FieldInfo[] GetPublicFields() => this.GetType().GetFields();
+    void Start()
+    {
+        foreach (var field in GetPublicFields())
+        {
+            StringTypeAttribute attribute = (StringTypeAttribute)Attribute.GetCustomAttribute(field, typeof(StringTypeAttribute));
+            GameObject prefab = field.FieldType.Name switch
+            {
+                "String" => attribute.type == StringType.SHORT ? shortTextPrefab : longTextPrefab,
+                "Boolean" => boolPrefab,
+                "Int32" => integerPrefab,
+                "AudioClip" => audioClipPrefab,
+                _ => longTextPrefab
+            };
+            GameObject instantiatedPrefab = Instantiate(prefab, transform);
+            instantiatedPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = field.Name.ToString();
+        }
+    }
 }
 
 public enum StringType {
@@ -25,11 +43,4 @@ public class StringTypeAttribute : Attribute
 {
     public StringType type { get; private set; }
     public StringTypeAttribute(StringType type) => this.type = type;
-}
-
-[AttributeUsage(AttributeTargets.Field)]
-public class DependentItemAttribute : Attribute
-{
-    public string fieldName { get; private set; }
-    public DependentItemAttribute(string fieldName) => this.fieldName = fieldName;
 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using TMPro;
 
 public class QuiplashQuestion : ContentList
 {
@@ -19,22 +18,8 @@ public class QuiplashQuestion : ContentList
     [StringType(StringType.SHORT)]
     public string location;
     public AudioClip keywordResponseAudio;
-
-    void Start()
+    public void DoSomeValidation()
     {
-        foreach (var field in GetPublicFields())
-        {
-            StringTypeAttribute attribute = (StringTypeAttribute)Attribute.GetCustomAttribute(field, typeof(StringTypeAttribute));
-            GameObject prefab = field.FieldType.Name switch
-            {
-                "String" => attribute.type == StringType.SHORT ? shortTextPrefab : longTextPrefab,
-                "Boolean" => boolPrefab,
-                "Int32" => integerPrefab,
-                "AudioClip" => audioClipPrefab,
-                _ => longTextPrefab
-            };
-            GameObject instantiatedPrefab = Instantiate(prefab, transform);
-            instantiatedPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = field.Name.ToString();
-        }
+        
     }
 }

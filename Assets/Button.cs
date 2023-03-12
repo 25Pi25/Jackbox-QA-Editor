@@ -16,7 +16,7 @@ public class Button : MonoBehaviour
     void Start() => UpdateJackboxTable();
     void OnMouseDown()
     {
-        filePath = EditorUtility.OpenFolderPanel("Select a folder1", filePath, "");
+        filePath = EditorUtility.OpenFolderPanel("Select a folder", filePath, "");
         foreach (Transform child in packContainer) Destroy(child.gameObject);
         UpdateJackboxTable();
     }
