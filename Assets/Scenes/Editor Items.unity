@@ -334,8 +334,8 @@ MonoBehaviour:
   integerPrefab: {fileID: 2328332513213254798, guid: 28062e9b4e9c5c348baff6c493aae820, type: 3}
   audioClipPrefab: {fileID: 2639370626302749544, guid: eb3283a32acec4548994a68434430d49, type: 3}
   familyFriendly: 1
-  id: 22107
-  prompt: How your cousin gets in trouble
+  id: 0
+  prompt: 
   promptAudio: {fileID: 0}
   hasJokeAudio: 1
   jokeKeywords: 

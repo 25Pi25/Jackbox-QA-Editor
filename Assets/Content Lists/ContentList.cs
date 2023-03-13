@@ -33,18 +33,23 @@ public class ContentList : MonoBehaviour
 
         GameObject instantiatedPrefab = Instantiate(prefab, transform);
         instantiatedPrefab.name = field.Name;
-        Transform button = instantiatedPrefab.transform.GetChild(1);
-        if (field.FieldType.Name == "Boolean")
+        Transform input = instantiatedPrefab.transform.GetChild(1);
+        switch (field.FieldType.Name)
         {
-            TextMeshProUGUI buttonText = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-            button.GetComponent<Button>().onClick.AddListener(() =>
-            {
-                bool isEnabled = buttonText.text == "X";
-                field.SetValue(this, !isEnabled);
-                Debug.Log(field.GetValue(this));
-                buttonText.text = isEnabled ? "" : "X";
-                RunValidation(field);
-            });
+            case "Boolean":
+                TextMeshProUGUI buttonText = input.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                input.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    bool isEnabled = buttonText.text == "X";
+                    field.SetValue(this, !isEnabled);
+                    buttonText.text = isEnabled ? "" : "X";
+                    RunValidation(field);
+                });
+                break;
+            case "String":
+                input.GetComponent<TMP_InputField>().onEndEdit
+                    .AddListener((string input) => field.SetValue(this, input));
+                break;
         }
         instantiatedPrefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = field.Name.ToString();
     }
